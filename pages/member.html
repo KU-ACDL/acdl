@@ -1,0 +1,534 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Konkuk University ACDL</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+	<style>
+		body {
+		  font-family: 'Noto Sans KR', sans-serif;
+		}
+		header.lab-header {
+		  background-color: rgb(0, 40, 80);
+		  color: white;
+		  text-align: center;
+		  padding: 4rem 0;
+		}
+
+		header.lab-header h1 {
+		  font-family: 'Segoe UI', sans-serif;
+		  font-size: 3.0rem;
+		  font-weight: bold;
+		}
+
+		header.lab-header p {
+		  font-family: 'Nanum Gothic', sans-serif;
+		  font-size: 1.3rem;
+		  font-weight: bold;
+		}
+
+		.nav-tabs-wrapper {
+		  position: relative;
+		  overflow-x: auto;
+		  overflow-y: hidden;
+		  -webkit-overflow-scrolling: touch;
+		  border-bottom: 1px solid #dee2e6;
+		  scroll-behavior: smooth;
+		  padding: 0 40px; /* 버튼 공간 확보 */
+		}
+		.nav-tabs .nav-link {
+		  font-weight: bold;
+		  color: #adb5bd /* 회색 */
+		}
+		.nav-tabs .nav-link.active {
+		  color: #212529; /* 검정 */
+		  border-color: #dee2e6 #dee2e6 #fff;
+		}
+		.scroll-btn {
+		  position: absolute;
+		  top: 50%;
+		  transform: translateY(-50%);
+		  z-index: 20;
+		  background-color: white;
+		  border: none;
+		  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+		  padding: 6px;
+		  border-radius: 50%;
+		  width: 32px;
+		  height: 32px;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		  font-weight: bold;
+		  color: #495057;
+		  transition: all 0.2s ease-in-out;
+		}
+
+		.scroll-btn:hover {
+		  background-color: #f1f3f5;
+		  transform: translateY(-50%) scale(1.05);
+		}
+
+		.scroll-btn.left {
+		  left: 0;
+		}
+
+		.scroll-btn.right {
+		  right: 0;
+		}
+
+		
+		.research-tabs .btn {
+		  color: #6c757d;
+		  font-weight: bold;
+		  background-color: white;
+		  border: 1px solid #dee2e6;
+		  margin-right: 5px;
+		  font-size: 1.5rem;
+		  padding: 0.6rem 1.2rem;
+		  border-radius: 0.375rem;
+		  min-width: 140px;
+		  text-align: center;
+		  flex : 1
+		}
+
+		.research-tabs .btn.active {
+		  background-color: #34495e;
+		  color: white !important;
+		  font-weight: bold;
+		}
+		
+		.card-title {
+		  font-size: 1rem;
+		  white-space: nowrap;
+		  overflow: hidden;
+		  text-overflow: ellipsis;
+		}
+		.card-img-top {
+		  height: 180px;
+		  object-fit: cover;
+		}
+		.carousel-control-prev-icon,
+		.carousel-control-next-icon {
+		  background-color: rgba(0,0,0,0.3);
+		  border-radius: 50%;
+		}
+		/* Projects Section 화살표 버튼 조정 */
+		#projectCarousel .carousel-control-prev,
+		#projectCarousel .carousel-control-next {
+		  width: 3rem; /* 버튼 크기 고정 */
+		  height: 3rem;
+		  top: 50%;
+		  transform: translateY(-50%);
+		  background-color: white;
+		  border: 1px solid #ced4da;
+		  border-radius: 50%;
+		  z-index: 5;
+		  opacity: 1;
+		  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		#projectCarousel .carousel-control-prev {
+		  left: -4m; /* 왼쪽 바깥으로 이동 */
+		}
+
+		#projectCarousel .carousel-control-next {
+		  right: -4rem; /* 오른쪽 바깥으로 이동 */
+		}
+
+		#projectCarousel .carousel-control-prev-icon,
+		#projectCarousel .carousel-control-next-icon {
+		  background-size: 60% 60%;
+		  background-color: transparent;
+		  filter: invert(0.5);
+		}
+
+	</style>
+</head>
+<body class="bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light px-4 shadow-sm">
+	  <a class="navbar-brand d-flex align-items-center" href="../index.html">
+		<img src="../static/images/acdl_logo_02.png" alt="Logo" style="max-height: 70px;" class="img-fluid me-2">
+		<!-- <span class="fw-bold small">Aerospace AI-Computing Design Lab.</span> -->
+	  </a>
+	  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+		<ul class="navbar-nav">
+		  <li class="nav-item"><a class="nav-link" href="../index.html">HOME</a></li>
+		  <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+		  <li class="nav-item"><a class="nav-link" href="prof.html">Professor</a></li>
+		  <li class="nav-item"><a class="nav-link fw-bold active" href="member.html">Members</a></li>
+		  <li class="nav-item"><a class="nav-link" href="pub.html">Publications</a></li>
+		  <li class="nav-item"><a class="nav-link" href="proj.html">Projects</a></li>
+		  <li class="nav-item"><a class="nav-link" href="repo.html">Repository</a></li>
+		</ul>
+	  </div>
+	  
+	</nav>
+	
+	<header class="lab-header">
+	  <div class="text-center flex-grow-1">
+		<h1 class="display-5 fw-bold text-white mb-2">Aerospace Computing & Design Lab</h1>
+		<p class="lead text-white mb-0">항공우주 전산설계 연구실</p>
+	  </div>
+	</header>
+
+
+<!-- 연구원 멤버 섹션 -->
+<section class="container my-5" id="mem_researcher">
+  <!-- 타이틀 -->
+  <div class="row mb-5 justify-content-center">
+    <div class="col-md-10 d-flex align-items-center">
+      <h2 class="fw-bold mb-0 pe-4 fs-2" style="border-right: 4px solid #0b2c55; padding-right: 12px;">
+        Members
+      </h2>
+    </div>
+  </div>
+
+	<div class="row justify-content-center mb-5">
+	  <div class="col-md-10 d-flex">
+		
+		<!-- 이미지 박스 -->
+		<div class="col-md-4 text-center">
+		  <img src="../static/images/mems/rsa0.jpg" class="img-fluid mx-auto d-block" style="max-height: 180px;">
+		</div>
+
+		<!-- 텍스트 박스 -->
+		<div class="col-md-8 d-flex align-items-center">
+		  <div class="ms-3">
+			<p class="mb-0 lh-lg fs-5">
+			  <span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">류세아</span>
+				<span class="text-secondary fs-6 fw-bold fst-italic">Sea Ryu</span>
+				<span class="d-block fs-6 text-muted mt-1 ms-3">
+				  ✉ <a href="mailto:stardong@konkuk.ac.kr" class="text-muted text-decoration-none">stardong@konkuk.ac.kr</a>
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1 ms-3">
+				<span class="d-block text-muted fw-bold">Researcher & Ph.D. candidate</span>
+				<span class="d-block text-dark">
+				  <strong>연구분야 ┃</strong>
+				  <span class="ms-2 fs-6"><br><strong>Computational Fluid Dynamics │ Adjoint Method │ Aerodynamic Design │ Wind Tunnel Test</strong></span>
+				</span>
+			  </span>
+			</p>
+		  </div>
+		</div>
+
+	  </div>
+	</div>
+
+	<div class="row justify-content-center mb-5">
+	  <div class="col-md-10 d-flex">
+		
+		<!-- 이미지 박스 -->
+		<div class="col-md-4 text-center">
+		  <img src="../static/images/mems/cdh0.png" class="img-fluid mx-auto d-block" style="max-height: 180px;">
+		</div>
+
+		<!-- 텍스트 박스 -->
+		<div class="col-md-8 d-flex align-items-center">
+		  <div class="ms-3">
+			<p class="mb-0 lh-lg fs-5">
+			  <span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">최다희</span>
+				<span class="text-secondary fs-6 fw-bold fst-italic">Dahui Choi</span>
+				<span class="d-block fs-6 text-muted mt-1 ms-3">
+				  ✉ <a href="mailto:zedie@konkuk.ac.kr" class="text-muted text-decoration-none">zedie@konkuk.ac.kr</a>
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1 ms-3">
+				<span class="d-block text-muted fw-bold">Ph.D. candidate</span>
+				<span class="d-block text-dark">
+				  <strong>연구분야 ┃</strong>
+				  <span class="ms-2"><br><strong> Optimization │ Data Science for Aerospace Application - Noise Predcition & Missile Trajectory Prediction │ Human Machine Interface for Unmanned Vehicle Systems</strong></span>
+				</span>
+			  </span>
+			</p>
+		  </div>
+		</div>
+
+	  </div>
+	</div>
+	
+	<div class="row justify-content-center mb-5">
+	  <div class="col-md-10 d-flex">
+		
+		<!-- 이미지 박스 -->
+		<div class="col-md-4 text-center">
+		  <img src="../static/images/mems/syr0.png" class="img-fluid mx-auto d-block" style="max-height: 180px;">
+		</div>
+
+		<!-- 텍스트 박스 -->
+		<div class="col-md-8 d-flex align-items-center">
+		  <div class="ms-3">
+			<p class="mb-0 lh-lg fs-5">
+			  <span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">손영록</span>
+				<span class="text-secondary fs-6 fw-bold fst-italic">Youngrok Son</span>
+				<span class="d-block fs-6 text-muted mt-1 ms-3">
+				  ✉ <a href="mailto:rcmano1@konkuk.ac.kr" class="text-muted text-decoration-none">rcmano1@konkuk.ac.kr</a>
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1 ms-3">
+				<span class="d-block text-muted fw-bold">Ph.D. Student</span>
+				<span class="d-block text-dark">
+				  <strong>연구분야 ┃</strong>
+				  <span class="ms-2"><br><strong>Multi UAV Operation │ Human Machine Interface</strong></span>
+				</span>
+			  </span>
+			</p>
+		  </div>
+		</div>
+
+	  </div>
+	</div>	
+
+	<div class="row justify-content-center mb-5">
+	  <div class="col-md-10 d-flex">
+		
+		<!-- 이미지 박스 -->
+		<div class="col-md-4 text-center">
+		  <img src="../static/images/mems/khm0.jpg" class="img-fluid mx-auto d-block" style="max-height: 180px;">
+		</div>
+
+		<!-- 텍스트 박스 -->
+		<div class="col-md-8 d-flex align-items-center">
+		  <div class="ms-3">
+			<p class="mb-0 lh-lg fs-5">
+			  <span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">김하민</span>
+				<span class="text-secondary fs-6 fw-bold fst-italic">Hamin Kim</span>
+				<span class="d-block fs-6 text-muted mt-1 ms-3">
+				  ✉ <a href="mailto:mnbvcx1021@konkuk.ac.kr" class="text-muted text-decoration-none">mnbvcx1021@konkuk.ac.kr</a>
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1 ms-3">
+				<span class="d-block text-muted fw-bold">Master Student</span>
+				<span class="d-block text-dark">
+				  <strong>연구분야 ┃</strong>
+				  <span class="ms-2"><br><strong>Propeller Aerodynamic Design Optimization │ Aircraft Design & Dynamics │ Aircraft and Missile Impact Analysis </strong></span>
+				</span>
+			  </span>
+			</p>
+		  </div>
+		</div>
+
+	  </div>
+	</div>	
+
+	<div class="row justify-content-center mb-5">
+	  <div class="col-md-10 d-flex">
+		
+		<!-- 이미지 박스 -->
+		<div class="col-md-4 text-center">
+		  <img src="../static/images/mems/jcy0.png" class="img-fluid mx-auto d-block" style="max-height: 180px;">
+		</div>
+
+		<!-- 텍스트 박스 -->
+		<div class="col-md-8 d-flex align-items-center">
+		  <div class="ms-3">
+			<p class="mb-0 lh-lg fs-5">
+			  <span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">주찬영</span>
+				<span class="text-secondary fs-6 fw-bold fst-italic">Chanyoung Joo</span>
+				<span class="d-block fs-6 text-muted mt-1 ms-3">
+				  ✉ <a href="mailto:joocy0524@gmail.com" class="text-muted text-decoration-none">joocy0524@gmail.com</a>
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1 ms-3">
+				<span class="d-block text-muted fw-bold">Master Student</span>
+				<span class="d-block text-dark">
+				  <strong>연구분야 ┃</strong>
+				  <span class="ms-2"><br><strong>Aircraft Conceptual Design Optimization │ Aircraft Design & Dynamics │ Aircraft and Missile Impact Analysis</strong></span>
+				</span>
+			  </span>
+			</p>
+		  </div>
+		</div>
+
+	  </div>
+	</div>
+
+	<div class="row justify-content-center mb-5">
+	  <div class="col-md-10 d-flex">
+		
+		<!-- 이미지 박스 -->
+		<div class="col-md-4 text-center">
+		  <img src="../static/images/mems/kjy0.png" class="img-fluid mx-auto d-block" style="max-height: 180px;">
+		</div>
+
+		<!-- 텍스트 박스 -->
+		<div class="col-md-8 d-flex align-items-center">
+		  <div class="ms-3">
+			<p class="mb-0 lh-lg fs-5">
+			  <span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">권준엽</span>
+				<span class="text-secondary fs-6 fw-bold fst-italic">Junyeop Kwon</span>
+				<span class="d-block fs-6 text-muted mt-1 ms-3">
+				  ✉ <a href="mailto:junyeop0401@konkuk.ac.kr" class="text-muted text-decoration-none">junyeop0401@konkuk.ac.kr</a>
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1 ms-3">
+				<span class="d-block text-muted fw-bold">Master Student</span>
+				<span class="d-block text-dark">
+				  <strong>연구분야 ┃</strong>
+				  <span class="ms-2"><br><strong>6DOF Flight Simulator for UAM │ UAM Noise Analysis </strong></span>
+				</span>
+			  </span>
+			</p>
+		  </div>
+		</div>
+
+	  </div>
+	</div>
+
+	<div class="row justify-content-center mb-5">
+	  <div class="col-md-10 d-flex">
+		
+		<!-- 이미지 박스 -->
+		<div class="col-md-4 text-center">
+		  <img src="../static/images/mems/thy0.png" class="img-fluid mx-auto d-block" style="max-height: 180px;">
+		</div>
+
+		<!-- 텍스트 박스 -->
+		<div class="col-md-8 d-flex align-items-center">
+		  <div class="ms-3">
+			<p class="mb-0 lh-lg fs-5">
+			  <span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">탁호영</span>
+				<span class="text-secondary fs-6 fw-bold fst-italic">Hoyoung Tark</span>
+				<span class="d-block fs-6 text-muted mt-1 ms-3">
+				  ✉ <a href="mailto:oceanly0217@konkuk.ac.kr" class="text-muted text-decoration-none">oceanly0217@konkuk.ac.kr</a>
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1 ms-3">
+				<span class="d-block text-muted fw-bold">Master Student</span>
+				<span class="d-block text-dark">
+				  <strong>연구분야 ┃</strong>
+				  <span class="ms-2"><br><strong>Multi UAV Operation │ Situation Awareness System </strong></span>
+				</span>
+			  </span>
+			</p>
+		  </div>
+		</div>
+
+	  </div>
+	</div>
+
+	<div class="row justify-content-center mb-5">
+	  <div class="col-md-10 d-flex">
+		
+		<!-- 이미지 박스 -->
+		<div class="col-md-4 text-center">
+		  <img src="../static/images/mems/lsh0.png" class="img-fluid mx-auto d-block" style="max-height: 180px;">
+		</div>
+
+		<!-- 텍스트 박스 -->
+		<div class="col-md-8 d-flex align-items-center">
+		  <div class="ms-3">
+			<p class="mb-0 lh-lg fs-5">
+			  <span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">이시호</span>
+				<span class="text-secondary fs-6 fw-bold fst-italic">Shiho Lee</span>
+				<span class="d-block fs-6 text-muted mt-1 ms-3">
+				  ✉ <a href="mailto:smurfbanana@konkuk.ac.kr" class="text-muted text-decoration-none">smurfbanana@konkuk.ac.kr</a>
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1 ms-3">
+				<span class="d-block text-muted fw-bold">Bachelor-Master Intergrated Course Student</span>
+				<span class="d-block text-dark">
+				  <strong>연구분야 ┃</strong>
+				  <span class="ms-2"><br><strong>Multi UAV Operation │ Human Machine Interface </strong></span>
+				</span>
+			  </span>
+			</p>
+		  </div>
+		</div>
+
+	  </div>
+	</div>
+
+	<div class="row justify-content-center mb-5">
+	  <div class="col-md-10 d-flex">
+		
+		<!-- 이미지 박스 -->
+		<div class="col-md-4 text-center">
+		  <img src="../static/images/mems/ksb0.png" class="img-fluid mx-auto d-block" style="max-height: 180px;">
+		</div>
+
+		<!-- 텍스트 박스 -->
+		<div class="col-md-8 d-flex align-items-center">
+		  <div class="ms-3">
+			<p class="mb-0 lh-lg fs-5">
+			  <span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">김승빈</span>
+				<span class="text-secondary fs-6 fw-bold fst-italic">Seungbin Kim</span>
+				<span class="d-block fs-6 text-muted mt-1 ms-3">
+				  ✉ <a href="mailto:kairak@konkuk.ac.kr" class="text-muted text-decoration-none">kairak@konkuk.ac.kr</a>
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1 ms-3">
+				<span class="d-block text-muted fw-bold">Undergraduate Student</span>
+				<span class="d-block text-dark">
+				  <strong>연구분야 ┃</strong>
+				  <span class="ms-2"><br><strong>Multi UAV Operation │ Drone Swarm System </strong></span>
+				</span>
+			  </span>
+			</p>
+		  </div>
+		</div>
+
+	  </div>
+	</div>
+
+
+	<div class="row justify-content-center mb-5">
+	  <div class="col-md-10 d-flex">
+		
+		<!-- 이미지 박스 -->
+		<div class="col-md-4 text-center">
+		  <img src="../static/images/mems/khn0.png" class="img-fluid mx-auto d-block" style="max-height: 180px;">
+		</div>
+
+		<!-- 텍스트 박스 -->
+		<div class="col-md-8 d-flex align-items-center">
+		  <div class="ms-3">
+			<p class="mb-0 lh-lg fs-5">
+			  <span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">김하늘</span>
+				<span class="text-secondary fs-6 fw-bold fst-italic">Sky Kim</span>
+				<span class="d-block fs-6 text-muted mt-1 ms-3">
+				  ✉ <a href="mailto:haueu1@konkuk.ac.kr" class="text-muted text-decoration-none">haueu1@konkuk.ac.kr</a>
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1 ms-3">
+				<span class="d-block text-muted fw-bold">Administrative Staff</span>
+			  </span>
+			</p>
+		  </div>
+		</div>
+
+	  </div>
+	</div
+	
+</section>
+
+  
+  
+
+	<footer class="text-center py-4 text-muted small">
+	© 2025 건국대학교 항공우주 전산설계 연구실 | KUACDL
+	</footer>
+
+</body>
+</html>
+

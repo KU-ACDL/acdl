@@ -1,0 +1,816 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+	<meta charset="UTF-8">
+	<title>Konkuk University ACDL</title>
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">\
+	<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR&display=swap" rel="stylesheet">
+	<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.bundle.min.js"></script>
+
+	<link href="https://fonts.googleapis.com/css2?family=Nanum+Gothic&display=swap" rel="stylesheet">
+	<style>
+		body {
+		  font-family: 'Noto Sans KR', sans-serif;
+		}
+		header.lab-header {
+		  background-color: rgb(0, 40, 80);
+		  color: white;
+		  text-align: center;
+		  padding: 4rem 0;
+		}
+
+		header.lab-header h1 {
+		  font-family: 'Segoe UI', sans-serif;
+		  font-size: 3.0rem;
+		  font-weight: bold;
+		}
+
+		header.lab-header p {
+		  font-family: 'Nanum Gothic', sans-serif;
+		  font-size: 1.3rem;
+		  font-weight: bold;
+		}
+
+		.nav-tabs-wrapper {
+		  position: relative;
+		  overflow-x: auto;
+		  overflow-y: hidden;
+		  -webkit-overflow-scrolling: touch;
+		  border-bottom: 1px solid #dee2e6;
+		  scroll-behavior: smooth;
+		  padding: 0 40px; /* 버튼 공간 확보 */
+		}
+		.nav-tabs .nav-link {
+		  font-weight: bold;
+		  color: #adb5bd /* 회색 */
+		}
+		.nav-tabs .nav-link.active {
+		  color: #212529; /* 검정 */
+		  border-color: #dee2e6 #dee2e6 #fff;
+		}
+		.scroll-btn {
+		  position: absolute;
+		  top: 50%;
+		  transform: translateY(-50%);
+		  z-index: 20;
+		  background-color: white;
+		  border: none;
+		  box-shadow: 0 1px 4px rgba(0, 0, 0, 0.1);
+		  padding: 6px;
+		  border-radius: 50%;
+		  width: 32px;
+		  height: 32px;
+		  display: flex;
+		  align-items: center;
+		  justify-content: center;
+		  font-weight: bold;
+		  color: #495057;
+		  transition: all 0.2s ease-in-out;
+		}
+
+		.scroll-btn:hover {
+		  background-color: #f1f3f5;
+		  transform: translateY(-50%) scale(1.05);
+		}
+
+		.scroll-btn.left {
+		  left: 0;
+		}
+
+		.scroll-btn.right {
+		  right: 0;
+		}
+		
+		.journal-item {
+		  margin-bottom: 1.5rem;
+		  margin-left: 15rem;
+		  
+		}
+		
+		.research-tabs .btn {
+		  color: #6c757d;
+		  font-weight: bold;
+		  background-color: white;
+		  border: 1px solid #dee2e6;
+		  margin-right: 5px;
+		  font-size: 1.5rem;
+		  padding: 0.6rem 1.2rem;
+		  border-radius: 0.375rem;
+		  min-width: 140px;
+		  text-align: center;
+		  flex : 1
+		}
+
+		.research-tabs .btn.active {
+		  background-color: #34495e;
+		  color: white !important;
+		  font-weight: bold;
+		}
+		
+		.card-title {
+		  font-size: 1rem;
+		  white-space: nowrap;
+		  overflow: hidden;
+		  text-overflow: ellipsis;
+		}
+		.card-img-top {
+		  height: 180px;
+		  object-fit: cover;
+		}
+		.carousel-control-prev-icon,
+		.carousel-control-next-icon {
+		  background-color: rgba(0,0,0,0.3);
+		  border-radius: 50%;
+		}
+		/* Projects Section 화살표 버튼 조정 */
+		#projectCarousel .carousel-control-prev,
+		#projectCarousel .carousel-control-next {
+		  width: 3rem; /* 버튼 크기 고정 */
+		  height: 3rem;
+		  top: 50%;
+		  transform: translateY(-50%);
+		  background-color: white;
+		  border: 1px solid #ced4da;
+		  border-radius: 50%;
+		  z-index: 5;
+		  opacity: 1;
+		  box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+		}
+
+		#projectCarousel .carousel-control-prev {
+		  left: -4m; /* 왼쪽 바깥으로 이동 */
+		}
+
+		#projectCarousel .carousel-control-next {
+		  right: -4rem; /* 오른쪽 바깥으로 이동 */
+		}
+
+		#projectCarousel .carousel-control-prev-icon,
+		#projectCarousel .carousel-control-next-icon {
+		  background-size: 60% 60%;
+		  background-color: transparent;
+		  filter: invert(0.5);
+		}
+
+	</style>
+</head>
+<body class="bg-light">
+	<nav class="navbar navbar-expand-lg navbar-light bg-light px-4 shadow-sm">
+	  <a class="navbar-brand d-flex align-items-center" href="../index.html">
+		<img src="../static/images/acdl_logo_02.png" alt="Logo" style="max-height: 70px;" class="img-fluid me-2">
+		<!-- <span class="fw-bold small">Aerospace AI-Computing Design Lab.</span> -->
+	  </a>
+	  <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
+		<span class="navbar-toggler-icon"></span>
+	  </button>
+
+	  <div class="collapse navbar-collapse justify-content-end" id="navbarNav">
+		<ul class="navbar-nav">
+		  <li class="nav-item"><a class="nav-link" href="../index.html">HOME</a></li>
+		  <li class="nav-item"><a class="nav-link" href="about.html">About</a></li>
+		  <li class="nav-item"><a class="nav-link" href="prof.html">Professor</a></li>
+		  <li class="nav-item"><a class="nav-link" href="member.html">Members</a></li>
+		  <li class="nav-item"><a class="nav-link fw-bold active" href="pub.html">Publications</a></li>
+		  <li class="nav-item"><a class="nav-link" href="proj.html">Projects</a></li>
+		  <li class="nav-item"><a class="nav-link" href="repo.html">Repository</a></li>
+		</ul>
+	  </div>
+	  
+	</nav>
+	
+	<header class="lab-header">
+	  <div class="text-center flex-grow-1">
+		<h1 class="display-5 fw-bold text-white mb-2">Aerospace Computing & Design Lab</h1>
+		<p class="lead text-white mb-0">항공우주 전산설계 연구실</p>
+	  </div>
+	</header>
+
+
+  <section class="container my-5" id="jornal">
+	  <div class="row mb-3 justify-content-center">
+		<div class="col-md-10 d-flex align-items-center">
+		  <h2 class="fw-bold mb-0 pe-4 fs-2" style="border-right: 4px solid #0b2c55; padding-right: 12px;">
+			Journals
+		  </h2>
+		  <p class="fw-bold mb-0 ms-4 fs-5">
+			저널
+		  </p>
+		</div>
+	  </div>
+
+	  
+	  <div class="row mb-3 justify-content-center ms-5" id="journal-list">
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1  mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Motion Estimation and Hand Gesture Recognition-Based Human–UAV Interaction Approach in Real Time. (2022).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Yoo, M., Na, Y., Song, H., Kim, G., Yun, J., Kim, S., Moon, C., & Jo, K. Sensors, 22(7), 2513. doi:10.3390/s22072513
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Estimation and Separation of Longitudinal Dynamic Stability Derivatives with Forced Oscillation Method Using Computational Fluid Dynamics. (2021).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Juliawan, N., Chung, H.-S., Lee, J.-W., & Kim, S. Aerospace, 8(11), 354. doi:10.3390/aerospace8110354
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Enhancement of light aircraft 6 DOF simulation using flight test data in longitudinal motion. (2021).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Nguyen, L. V. T., Tyan, M., Lee, J.-W., & Kim, S. The Aeronautical Journal, 125(1290), 1358–1379. doi:10.1017/aer.2021.18
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Multistage liquid rocket weight estimation and optimization for early design stages. (2020).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Shu, J. I., Lee, J. W., Kim, S., Lee, J. L., & Wang, Y. Journal of Aerospace Engineering, 33(6), 04020069. doi:10.1061/(ASCE)AS.19435525.0001181
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Design-airworthiness integration method for general aviation aircraft during early development stage. (2019).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Tyan, M., Yoon, J., Nguyen, N. V., Lee, J. W., & Kim, S. Aircraft Engineering and Aerospace Technology, 91(7), 1067-1076. doi:10.1108/aeat-05-2018-0143
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Efficient approach to database integration for an aerospace vehicle design and certification framework. (2018).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Maw, A. A., Lwin, T., Tyan, M., Lee, J. W., & Kim, S. Advances in Engineering Software, 118, 27-34. doi:10.1016/j.advengsoft.2018.01.001
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Comprehensive preliminary sizing/resizing method for a fixed wing–VTOL electric UAV. (2017).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Tyan, M., Van Nguyen, N., Kim, S., & Lee, J. W. Aerospace Science and Technology, 71, 30-41. doi:10.1016/j.ast.2017.09.008
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Process of establishing design requirements and selecting alternative configurations for conceptual design of a VLA. (2017).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Bae, B. Y., Kim, S., Lee, J. W., Van Nguyen, N., & Chung, B. C. Chinese Journal of Aeronautics, 30(2), 738-751. doi:10.1016/j.cja.2017.02.018
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Database adaptive fuzzy membership function generation for possibility-based aircraft design optimization. (2017).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Tyan, M., Nguyen, N. V., Kim, S., & Lee, J. W. Journal of Aircraft, 54(1), 114-124. doi:10.2514/1.C033833
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Efficient stall compliance prediction method for trimmed very light aircraft with high-lift devices. (2017). 
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Van Nguyen, N., Lee, D., Tyan, M., Lee, J. W., & Kim, S. Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace Engineering, 231(6), 1124-1137. doi:10.1177/0954410016648981
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Enhanced multi-fidelity model for flight simulation using global exploration and the Kriging method. (2017).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Lee, D., Van Nguyen, N., Tyan, M., Chun, H. G., Kim, S., & Lee, J. W. Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace Engineering, 231(4), 606-620. doi:10.1177/0954410016641441
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Investigations on stability and control characteristics of a CS-VLA certified aircraft using wind tunnel test data. (2016).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Van Nguyen, N., Tyan, M., Lee, J. W., & Kim, S. Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace Engineering, 230(14), 2728-2743. doi:10.1177/0954410016632016
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Multidisciplinary mission design optimization for space launch vehicles based on sequential design process. (2016).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Shu, J. I., Kim, J. W., Lee, J. W., & Kim, S. Proceedings of the Institution of Mechanical Engineers, Part G: Journal of Aerospace Engineering, 230(1), 3-18. doi:10.1177/0954410015586858
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Repetitively enhanced neural networks method for complex engineering design optimisation problems. (2015).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Van Nguyen, N., Lee, J. W., Tyan, M., & Kim, S. The Aeronautical Journal, 119(1220), 1253-1270. doi:10.1017/S0001924000011234
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Aircraft Design Optimization Process using a Decision Model by Database. (2015). 
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Naing, H. M., Van Nguyen, N., Lee, J. W., & Kim, S. Transactions of the Japan Society for Aeronautical and Space Sciences, 58(1), 30-38. doi:10.2322/tjsass.58.30
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Multidisciplinary unmanned combat air vehicle system design using multi-fidelity model. (2013).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Nguyen, N. V., Choi, S. M., Kim, W. S., Lee, J. W., Kim, S., Neufeld, D., & Byun, Y. H. Aerospace Science and Technology, 26(1), 200-210. doi:10.1016/j.ast.2012.04.004
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Automated generation of aerofoil characteristics for rotorcraft application. (2012).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Vu, N. A., Lee, J. W., Kim, S., & Neufeld, D. Aircraft Engineering and Aerospace Technology: An International Journal, 84(4), 221-230. doi:10.1108/00022661211237746
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Configuration design and optimisation study of a compound gyroplane. (2011). 
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Anh Vu, N., Lee, Y. J., Lee, J. W., Kim, S., & Jae Chung, I. Aircraft Engineering and Aerospace Technology, 83(6), 420-428. doi:10.1108/00022661111173298
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Enhancement of class of adjoint design methods via optimization of parameters.(2010).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Kim, S., Hosseini, K., Leoviriyakit, K., & Jameson, A. (2010). AIAA journal, 48(6), 1072-1076. doi:10.2514/1.42985
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				A systematic approach for quantitative analysis of multidisciplinary design optimization framework. (2010).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Kim, S., Park, J., Lee, J. O., & Lee, J. W. Transactions of the Japan Society for Aeronautical and Space Sciences, 52(178), 246-254. doi:10.2322/tjsass.52.246
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Asymmetric vortices around a body at high angle of attack supersonic flow. (2009).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Kim, S. H., & Kim, W. Journal of the Korean Physical Society, 55(5), 2159-2165. doi:10.3938/jkps.55.2159
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				A problem solving environment portal for multidisciplinary design optimization. (2009).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Kim, J. H., Lee, H. J., Kim, S. H., & Lee, J. O. Advances in Engineering Software, 40(8), 623-629. doi:10.1016/j.advengsoft.2008.11.006
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Multiobjective optimization using adjoint gradient enhanced approximation models for genetic algorithms. (2006, May).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Kim, S., & Chung, H. S. In International Conference on Computational Science and Its Applications (pp. 491-502). Berlin, Heidelberg: Springer Berlin Heidelberg. doi:10.1007/11751649_54
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				A Framework for Coupling Reynolds-Averaged With Large-Eddy Simulations for Gas Turbine Applications. (2005).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Schlüter, J. U., Wu, X., Kim, S., Shankaran, S., Alonso, J. J., & Pitsch, H. ASME. J. Fluids Eng. 127(4). 806–815. doi:10.1115/1.1994877
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Multi-element high-lift configuration design optimization using viscous continuous adjoint method.A Framework for Coupling Reynolds-Averaged With Large-Eddy Simulations for Gas Turbine Applications. (2005).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Kim, S., Alonso, J. J., & Jameson, A. Journal of Aircraft, 41(5), 1082-1097. doi:10.2514/1.17
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+		
+		
+		<div class="journal-item">
+		<div class="col-md-9 d-flex align-items-center ps-md-1 mt-3">
+		  <div class = "ms-2">
+			<p class="mb-2 lh-lg">
+			<span class="d-flex align-items-baseline gap-2">
+				<span class="text-dark fw-bold">
+				Reduction of the adjoint gradient formula for aerodynamic shape optimization problems. (2003).
+				</span>
+			  </span>
+			  <span class="d-block fs-6 text-muted mt-1">
+				<span class="d-block text-muted">
+				Jameson, A., & Kim, S. AIAA journal, 41(11), 2114-2129. doi:10.2514/2.6830
+				</span>
+			  </span>
+
+			</p>
+		  </div>		  
+		</div>
+		</div>
+
+
+
+		
+	  </div>
+	  <div class="d-flex justify-content-center mt-4">
+		<button id="prevPage" class="btn me-2">이전</button>
+		<span id="pageIndicator" class="align-self-center fw-bold"></span>
+		<button id="nextPage" class="btn ms-2">다음</button>
+	  </div>
+ 
+  </section>
+
+  <section class="container my-5" id="conf">
+	  <div class="row mb-3 justify-content-center">
+		<div class="col-md-10 d-flex align-items-center">
+		  <h2 class="fw-bold mb-0 pe-4 fs-2" style="border-right: 4px solid #0b2c55; padding-right: 12px;">
+			Conferences
+		  </h2>
+		  <p class="fw-bold mb-0 ms-4 fs-5">
+			학술대회
+		  </p>
+		</div>
+		
+		<div class="col-md-9 d-flex align-items-center ps-md-1">
+		  <div class = "ms-3">
+			<p class="fw-bold mb-0 ms-4 lh-lg">
+			<span class="text-secondary fs-4 fw-bold fst-italic">Comming Soon</span>
+			  <br>
+			  <br>
+
+			</p>
+		  </div>
+		</div>
+	  </div>
+  </section>
+  
+  
+	<footer class="text-center py-4 text-muted small">
+	© 2025 건국대학교 항공우주 전산설계 연구실 | KUACDL
+	</footer>
+	
+	
+	<script>
+	  document.addEventListener('DOMContentLoaded', function () {
+		const itemsPerPage = 10;
+		const items = document.querySelectorAll('.journal-item');
+		const totalPages = Math.ceil(items.length / itemsPerPage);
+		let currentPage = 1;
+
+		const pageIndicator = document.getElementById('pageIndicator');
+		const updateDisplay = () => {
+		  items.forEach((item, index) => {
+			item.style.display = (index >= (currentPage - 1) * itemsPerPage && index < currentPage * itemsPerPage) ? 'block' : 'none';
+		  });
+		  pageIndicator.textContent = `Page ${currentPage} of ${totalPages}`;
+		};
+
+		document.getElementById('prevPage').addEventListener('click', () => {
+		  if (currentPage > 1) {
+			currentPage--;
+			updateDisplay();
+		  }
+		});
+
+		document.getElementById('nextPage').addEventListener('click', () => {
+		  if (currentPage < totalPages) {
+			currentPage++;
+			updateDisplay();
+		  }
+		});
+
+		updateDisplay();
+	  });
+	</script>
+
+</body>
+</html>
